@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create("pasiens", function(Blueprint $table) {
+            $table->string('idPasien')->primary();
+            $table->string("namaPasien");
+            $table->string("jenis_kelamin");
+            $table->string("alamat");
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists("pasiens");
     }
 };
