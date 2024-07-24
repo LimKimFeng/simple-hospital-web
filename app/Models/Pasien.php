@@ -18,4 +18,9 @@ class Pasien extends Model
     public $timestamps = false;
 
     protected $fillable = ['namaPasien', 'jenis_kelamin', 'alamat'];
+
+    public function kunjungan()
+    {
+        return $this->hasMany(Kunjungan::class, 'idPasien', 'idPasien');
+    }
 }

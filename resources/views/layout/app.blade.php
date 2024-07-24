@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My App | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <script src="{{ asset('bootstrap-5.3.3-dist/js/bootstrap.bundle.js') }}"></script>
 </head>
 
@@ -13,7 +14,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand">My App</a>
+                <a href="{{ route('home') }}" class="navbar-brand">My App</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -25,11 +26,14 @@
                         <li class="nav-item">
                             <a href="{{ route('dokter.index') }}" class="nav-link" aria-current="page">Dokter</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('kunjungan.index') }}" class="nav-link" aria-current="page">Kunjungan</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        
+
         <!-- content -->
         @yield('content')
 

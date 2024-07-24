@@ -1,50 +1,54 @@
 @extends('layout.app')
+
 @section('title')
 Data Pasien
 @endsection
 
 @section('content')
-<div class="row mt-3">
-    <div class="col-sm">
-        <h3>Tabel Pasien</h3>
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-sm">
+            <h3 class="text-primary">Tabel Pasien</h3>
+        </div>
+        <div class="col text-end">
+            <a href="{{ route('pasiens.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col">
-        <a href="{{ route('pasiens.create') }}" class="btn btn-primary btn-sm d-flex justify-content-center">Tambah Data</a>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped table-hover table-sm">
+                <thead class="table-primary">
+                    <tr>
+                        <th>No</th>
+                        <th>ID Pasien</th>
+                        <th>Nama Pasien</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($pasiens as $pasien)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pasien->idPasien }}</td>
+                        <td>{{ $pasien->namaPasien }}</td>
+                        <td>{{ $pasien->jenis_kelamin }}</td>
+                        <td>{{ $pasien->alamat }}</td>
+                        <td>
+                            <a href="{{ route('pasiens.edit', $pasien->idPasien) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $pasien->idPasien }}">Hapus</button>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center">Tidak ada pasien</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<div class="row mt-3">
-    <div class="col">
-        <table class="table table-striped table-hover table-sm">
-            <tr>
-                <th>No</th>
-                <th>ID Pasien</th>
-                <th>Nama Pasien</th>
-                <th>Jenis Kelamin</th>
-                <th>Alamat</th>
-                <th>Action</th>
-            </tr>
-            @forelse($pasiens as $pasien)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $pasien->idPasien }}</td>
-                <td>{{ $pasien->namaPasien }}</td>
-                <td>{{ $pasien->jenis_kelamin }}</td>
-                <td>{{ $pasien->alamat }}</td>
-                <td>
-                    <a href="{{ route('pasiens.edit', $pasien->idPasien) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $pasien->idPasien }}">Hapus</button>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="6" class="text-center">Tidak ada pasien</td>
-            </tr>
-            @endforelse
-        </table>
-    </div>
-</div>
 </div>
 
 <!-- Modal Konfirmasi Hapus -->
@@ -68,16 +72,17 @@ Data Pasien
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
 
-    @section('script')
-    <script>
-        $(document).ready(function() {
-            $('.delete-btn').click(function() {
-                var id = $(this).data('id');
-                $('#deleteForm').attr('action', '{{ route("pasiens.destroy", "") }}/' + id);
-                $('#confirmDeleteModal').modal('show');
-            });
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('.delete-btn').click(function() {
+            var id = $(this).data('id');
+            $('#deleteForm').attr('action', '{{ route("pasiens.destroy", "") }}/' + id);
+            $('#confirmDeleteModal').modal('show');
         });
-    </script>
-    @endsection
+    });
+</script>
+@endsection

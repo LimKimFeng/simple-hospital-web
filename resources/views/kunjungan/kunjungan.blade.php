@@ -1,17 +1,17 @@
 @extends('layout.app')
 
 @section('title')
-Data Dokter
+Data Kunjungan
 @endsection
 
 @section('content')
 <div class="container mt-4">
     <div class="row mb-3">
         <div class="col-sm">
-            <h3 class="text-primary">Tabel Dokter</h3>
+            <h3 class="text-primary">Tabel Kunjungan</h3>
         </div>
         <div class="col text-end">
-            <a href="{{ route('dokter.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+            <a href="{{ route('kunjungan.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
         </div>
     </div>
     <div class="row">
@@ -20,29 +20,31 @@ Data Dokter
                 <thead class="table-primary">
                     <tr>
                         <th>No</th>
+                        <th>ID Kunjungan</th>
+                        <th>ID Pasien</th>
                         <th>ID Dokter</th>
-                        <th>Nama Dokter</th>
-                        <th>Spesialis</th>
-                        <th>Nomor Telepon</th>
+                        <th>Tanggal</th>
+                        <th>Keluhan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($dokter as $dokter)
+                    @forelse($kunjungan as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $dokter->idDokter }}</td>
-                        <td>{{ $dokter->namaDokter }}</td>
-                        <td>{{ $dokter->spesialis }}</td>
-                        <td>{{ $dokter->nomorTelepon }}</td>
+                        <td>{{ $item->idKunjungan }}</td>
+                        <td>{{ $item->idPasien }}</td>
+                        <td>{{ $item->idDokter }}</td>
+                        <td>{{ $item->tanggal }}</td>
+                        <td>{{ $item->keluhan }}</td>
                         <td>
-                            <a href="{{ route('dokter.edit', $dokter->idDokter) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $dokter->idDokter }}">Hapus</button>
+                            <a href="{{ route('kunjungan.edit', $item->idKunjungan) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $item->idKunjungan }}">Hapus</button>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center">Tidak ada dokter</td>
+                        <td colspan="7" class="text-center">Tidak ada kunjungan</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -64,7 +66,7 @@ Data Dokter
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <form id="deleteForm" method="POST" action="{{ route('dokter.destroy', '') }}" style="display: inline;">
+                <form id="deleteForm" method="POST" action="{{ route('kunjungan.destroy', '') }}" style="display: inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Hapus</button>
@@ -80,7 +82,7 @@ Data Dokter
     $(document).ready(function() {
         $('.delete-btn').click(function() {
             var id = $(this).data('id');
-            $('#deleteForm').attr('action', '{{ route("dokter.destroy", "") }}/' + id);
+            $('#deleteForm').attr('action', '{{ route("kunjungan.destroy", "") }}/' + id);
             $('#confirmDeleteModal').modal('show');
         });
     });

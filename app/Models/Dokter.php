@@ -18,4 +18,9 @@ class Dokter extends Model
     public $timestamps = false;
 
     protected $fillable = ['idDokter', 'namaDokter', 'spesialis', 'nomorTelepon'];
+
+    public function kunjungan()
+    {
+        return $this->hasMany(Kunjungan::class, 'idDokter', 'idDokter');
+    }
 }
