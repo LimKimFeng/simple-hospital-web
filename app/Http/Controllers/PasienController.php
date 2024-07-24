@@ -13,12 +13,12 @@ class PasienController extends Controller
     {
         $pasiens = Pasien::all();
         
-        return view('pasien', compact('pasiens'));
+        return view('pasien.pasien', compact('pasiens'));
     }
 
     public function create()
     {
-        return view('create');
+        return view('pasien.create');
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class PasienController extends Controller
     public function edit($idPasien)
     {
         $pasien = Pasien::find($idPasien);
-        return view('edit', compact('pasien'));
+        return view('pasien.edit', compact('pasien'));
     }
 
     public function update(Request $request, $idPasien)

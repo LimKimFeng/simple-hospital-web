@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("pasiens", function(Blueprint $table) {
-            $table->string('idPasien', 50)->primary();
-            $table->string("namaPasien", 50);
-            $table->string("jenis_kelamin", 15);
-            $table->string("alamat", 255);
+        Schema::create('doctors', function(Blueprint $table) {
+            $table->string('idDokter', 11)->primary();
+            $table->string('namaDokter', 100);
+            $table->string('spesialis', 100);
+            $table->string('nomorTelepon', 15);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists("pasiens");
+        Schema::dropIfExists('doctors');
     }
 };
